@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CalculateScore : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class CalculateScore : MonoBehaviour
     public int pointIndex = 0;
     public bool stationary = false;
     public int stationCount = 0;
+
+    public TextMeshProUGUI LineLeftText;
 
     public float Score = 0;
 
@@ -100,7 +103,7 @@ public class CalculateScore : MonoBehaviour
                 //Debug.Log("Phase Stationary :"+ stationCount.ToString());
                 stationCount++;
 
-                if (!stationary && stationCount >= 2)
+                if (!stationary && stationCount >= 60)
                 {
                     pointIndex++;
                     LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
@@ -145,11 +148,13 @@ public class CalculateScore : MonoBehaviour
 
         }
         updatePoints();
+
+        LineLeftText.text = "Garis Tersisa : " + LineLeft;
     }
 
     private void updatePoints()
     {
-
+        var Benar = 0;
         foreach (Transform childTransforms in HintParent.GetComponent<Transform>())
         {
 
@@ -178,6 +183,7 @@ public class CalculateScore : MonoBehaviour
                 );
                 sp.colorGradient = gradient;
 
+                Benar++;
                 continue;
             }
             else
@@ -193,6 +199,8 @@ public class CalculateScore : MonoBehaviour
             }
 
         }
+
+        Score = (100 / HintParent.GetComponent<Transform>().childCount) * Benar ;
 
     }
 

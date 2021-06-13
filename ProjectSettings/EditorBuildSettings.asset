@@ -6,8 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MenuUtama 1.unity
+    path: Assets/Scenes/MenuUtama.unity
     guid: 3901fbf407690984188e91844c0950f9
+  - enabled: 1
+    path: Assets/Scenes/Kesukaran.unity
+    guid: eba66840ceadc2f4f92ba3db7f16d176
+  - enabled: 1
+    path: Assets/Scenes/Pengaturan.unity
+    guid: 1dab5529b5831d94da3abcddb637628c
+  - enabled: 1
+    path: Assets/Scenes/Tentang.unity
+    guid: 3ac59e78ae706944f8bcd21e5e571c08
+  - enabled: 1
+    path: Assets/Scenes/Game/Level Mudah.unity
+    guid: 05ee9d97b8b3ba1498ac468346fbd70f
+  - enabled: 1
+    path: Assets/Scenes/Game/Level Sedang.unity
+    guid: a5dbd9728cc3e704fabde5c0a9630bfb
+  - enabled: 1
+    path: Assets/Scenes/Game/Level Sulit.unity
+    guid: 331782badfa745643978964a5b88238e
   - enabled: 1
     path: Assets/Scenes/Game/Level 1/1-1.unity
     guid: 83905dbbb4a6ca24482a531ba5c23b5b

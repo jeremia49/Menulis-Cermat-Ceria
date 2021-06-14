@@ -50,12 +50,7 @@ public class CalculateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (LineLeft == 0)
-        {
-            SceneManager.LoadSceneAsync("Result");
-            return;
-        }
-        
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -145,6 +140,11 @@ public class CalculateScore : MonoBehaviour
 
                 pointIndex = 0;
                 lineIndex++;
+
+                if(LineLeft <= 0)
+                {
+                    SceneManager.LoadSceneAsync("Result");
+                }
 
                 //createdLines[lineIndex].AddComponent<Rigidbody2D>();
             }

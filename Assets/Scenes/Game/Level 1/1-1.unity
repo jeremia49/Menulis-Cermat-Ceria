@@ -1212,7 +1212,7 @@ MonoBehaviour:
   stationCount: 0
   LineLeftText: {fileID: 244146966}
   Score: 0
-  LineLimit: 8
+  LineLimit: 7
   LineLeft: 0
 --- !u!1 &519420028
 GameObject:

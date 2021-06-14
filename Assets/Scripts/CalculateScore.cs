@@ -6,6 +6,8 @@ using TMPro;
 
 public class CalculateScore : MonoBehaviour
 {
+    public string LEVEL;
+
     public Color color;
     public GameObject HintParent;
     public GameObject TargetParent;
@@ -15,6 +17,7 @@ public class CalculateScore : MonoBehaviour
     public int pointIndex = 0;
     public bool stationary = false;
     public int stationCount = 0;
+    
 
     public TextMeshProUGUI LineLeftText;
 
@@ -39,6 +42,7 @@ public class CalculateScore : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetString("level", LEVEL);
         createdLines = new List<GameObject>();
         LineLeft = LineLimit;
     }
@@ -46,14 +50,14 @@ public class CalculateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LineLeft == 0)
+        {
+            SceneManager.LoadSceneAsync("Result");
+            return;
+        }
+        
         if (Input.touchCount > 0)
         {
-            
-            if(LineLeft == 0)
-            {
-                return;
-            }
-            
             Touch touch = Input.GetTouch(0);
             Vector3 worldpoint =  Camera.main.ScreenToWorldPoint(touch.position);
             Vector3 touchpos = new Vector3(worldpoint.x, worldpoint.y, 0f);
@@ -201,7 +205,7 @@ public class CalculateScore : MonoBehaviour
         }
 
         Score = (100 / HintParent.GetComponent<Transform>().childCount) * Benar ;
-
+        PlayerPrefs.SetFloat("score", Score);
     }
 
     public void RestartScene()

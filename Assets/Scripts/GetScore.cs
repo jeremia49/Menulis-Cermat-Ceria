@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+using System;
+using UnityEngine.SceneManagement;
 
 public class GetScore : MonoBehaviour
 {
-  
+    public TextMeshProUGUI touchText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI scoreText;
 
@@ -16,17 +17,21 @@ public class GetScore : MonoBehaviour
     public GameObject star3;
     public Sprite image;
 
+    public string level;
+    public float score;
 
     // Start is called before the first frame update
     void Start()
     {
-        var level = PlayerPrefs.GetString("level");
-        var score = PlayerPrefs.GetFloat("score");
+        level = PlayerPrefs.GetString("level");
+        score = PlayerPrefs.GetFloat("score");
 
         levelText.text = level;
         scoreText.text = score.ToString() + " / 100";
 
-        if(score < 10)
+        touchText.text = "Sentuh dimanapun untuk lanjut ke " + getNextLevel(level);
+
+        if (score < 10)
         {
             return;
         }
@@ -45,5 +50,57 @@ public class GetScore : MonoBehaviour
             star3.GetComponent<Image>().sprite = image;
 
         }
+    }
+
+    void Update()
+    {
+        if(Input.touchCount > 0)
+        {
+            SceneManager.LoadSceneAsync(getNextLevel(level));
+        }
+    }
+
+    private string getNextLevel(string current)
+    {
+        int level1 = 1;
+        int level2 = 9;
+        int level3 = 1;
+
+
+        var splitted = current.Split('-');
+        if (splitted[0] == "1")
+        {
+            if(Int32.Parse(splitted[1]) < level1)
+            {
+                return splitted[0] + "-" + (Int32.Parse(splitted[1]) + 1);
+            }
+            else
+            {
+                return "MenuUtama";
+            }
+        }else if (splitted[0] == "2")
+        {
+            if (Int32.Parse(splitted[1]) < level2)
+            {
+                return splitted[0] + "-" + (Int32.Parse(splitted[1]) + 1);
+            }
+            else
+            {
+                return "MenuUtama";
+            }
+        }
+        else if (splitted[0] == "3")
+        {
+            if (Int32.Parse(splitted[1]) < level3)
+            {
+                return splitted[0] + "-" + (Int32.Parse(splitted[1]) + 1);
+            }
+            else
+            {
+                return "MenuUtama";
+            }
+        }
+
+        return "MenuUtama";
     }
 }

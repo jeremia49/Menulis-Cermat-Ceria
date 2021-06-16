@@ -62,7 +62,7 @@ public class GetScore : MonoBehaviour
 
     private string getNextLevel(string current)
     {
-        int level1 = 1;
+        int level1 = 3;
         int level2 = 9;
         int level3 = 1;
 
@@ -76,7 +76,7 @@ public class GetScore : MonoBehaviour
             }
             else
             {
-                return "MenuUtama";
+                return "Level Sedang";
             }
         }else if (splitted[0] == "2")
         {
@@ -86,7 +86,7 @@ public class GetScore : MonoBehaviour
             }
             else
             {
-                return "MenuUtama";
+                return "Level Sulit";
             }
         }
         else if (splitted[0] == "3")

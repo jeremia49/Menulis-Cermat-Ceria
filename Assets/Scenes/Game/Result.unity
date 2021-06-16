@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48849a9490a7f4a42a0891cdec2acc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchText: {fileID: 0}
+  touchText: {fileID: 615959896}
   levelText: {fileID: 238288249}
   scoreText: {fileID: 258723283}
   star1: {fileID: 1049085241}

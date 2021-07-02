@@ -8,6 +8,7 @@ public class CalculateScore : MonoBehaviour
 {
     public string LEVEL;
 
+
     public Color color;
     public GameObject HintParent;
     public GameObject TargetParent;
@@ -15,7 +16,6 @@ public class CalculateScore : MonoBehaviour
     public int lineIndex = 0;
     public Material material;
     public int pointIndex = 0;
-    public bool stationary = false;
     public int stationCount = 0;
     
 
@@ -29,15 +29,7 @@ public class CalculateScore : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        /*foreach (Transform childTransforms in HintParent.GetComponent<Transform>())
-        {
-            LineRenderer targetLine = childTransforms.gameObject.GetComponent<LineRenderer>();
-            Vector2 startPos = targetLine.GetPosition(0);
-            Vector2 endPos = targetLine.GetPosition(1);
 
-            EdgeCollider2D edgeColl = childTransforms.gameObject.AddComponent<EdgeCollider2D>();
-            edgeColl.points = new Vector2[2] { new Vector2(startPos.x, startPos.y), new Vector2(endPos.x, endPos.y) };
-        }*/
     }
 
     void Start()
@@ -55,17 +47,16 @@ public class CalculateScore : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             Vector3 worldpoint =  Camera.main.ScreenToWorldPoint(touch.position);
-            Vector3 touchpos = new Vector3(worldpoint.x, worldpoint.y, 0f);
+            Vector3 touchpos = new Vector3(worldpoint.x, worldpoint.y, 1f);
             
 
             if (touch.phase == TouchPhase.Began)
             {
-
                 //Debug.Log("Phase Began");
                 GameObject lineObject = new GameObject();
                 lineObject.GetComponent<Transform>().SetParent(TargetParent.GetComponent<Transform>());
-                lineObject.GetComponent<Transform>().localPosition = new Vector3(0f, 0f, 0f);
-                lineObject.GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
+                lineObject.GetComponent<Transform>().localPosition = new Vector3(0f, 0f, 1f);
+                lineObject.GetComponent<Transform>().localScale = new Vector3(100f, 100f, 1f);
                 lineObject.AddComponent<LineRenderer>();
 
                 LineRenderer line = lineObject.GetComponent<LineRenderer>();
@@ -73,10 +64,8 @@ public class CalculateScore : MonoBehaviour
                 line.startWidth = 0.01f;
                 line.endWidth = 0.01f;
 
-
                 line.SetPosition(0, touchpos);
                 line.SetPosition(1, touchpos);
-
 
                 createdLines.Add(lineObject);
 
@@ -84,33 +73,38 @@ public class CalculateScore : MonoBehaviour
 
             }else if(touch.phase == TouchPhase.Moved)
             {
-                //Debug.Log("Phase Moved");
-                stationary = false;
+                //Debug.Log("Phase Moved")
                 LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
                 pointIndex++;
                 targetLine.positionCount++;
                 targetLine.SetPosition(pointIndex, touchpos);
                 targetLine.SetPosition(pointIndex+1, touchpos);
-
             }
             else if(touch.phase == TouchPhase.Ended)
             {
                 
                 LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
-                EdgeCollider2D edgeColl = createdLines[lineIndex].AddComponent<EdgeCollider2D>();
 
-                Vector2[] collPoints = new Vector2[targetLine.positionCount];
-               
-                for (int i = 0; i < targetLine.positionCount; i++)
+                //Vector3[] collPoints = new Vector3[targetLine.positionCount];
+                
+                MeshCollider meshCollider = createdLines[lineIndex].AddComponent<MeshCollider>();
+
+                /*for (int i = 0; i < targetLine.positionCount; i++)
                 {
                     Vector3 linepos = targetLine.GetPosition(i);
-                    Vector2 pos = edgeColl.transform.InverseTransformPoint(linepos);
+                    Vector3 pos = meshCollider.transform.InverseTransformPoint(linepos);
+                    collPoints[i] = new Vector3(pos.x, pos.y, pos.z);
+                }*/
 
-                    collPoints[i] = new Vector2(pos.x, pos.y);
-                }
 
-                edgeColl.points = collPoints;
+                Mesh mesh = new Mesh();
+                targetLine.BakeMesh(mesh, false);
+                meshCollider.sharedMesh = mesh;
 
+
+                //EdgeCollider2D edgeColl = createdLines[lineIndex].AddComponent<EdgeCollider2D>();
+
+                //edgeColl.points = collPoints;*/
 
                 pointIndex = 0;
                 lineIndex++;
@@ -134,22 +128,30 @@ public class CalculateScore : MonoBehaviour
         var Benar = 0;
         foreach (Transform childTransforms in HintParent.GetComponent<Transform>())
         {
-
-            Vector2 startChildPos = childTransforms.GetComponent<LineRenderer>().GetPosition(0);
-            Vector2 endChildPos = childTransforms.GetComponent<LineRenderer>().GetPosition(1);
-
-
-            Vector2 hintPos = new Vector2((startChildPos.x + endChildPos.x) / 2, ( (startChildPos.y + endChildPos.y) / 2) + 0.05f );
-            Vector2 hintPos1 = new Vector2((startChildPos.x), ((startChildPos.y + endChildPos.y) / 2));
-            //Debug.Log(hintPos);
-
-            RaycastHit2D hit1 = Physics2D.Raycast(hintPos, Vector2.down, 0.1f);
-            RaycastHit2D hit2 = Physics2D.Raycast(hintPos1, Vector2.left, 0.1f);
-
-            if (hit1.collider != null || hit2.collider !=null)
+            int total = childTransforms.GetComponent<LineRenderer>().positionCount;
+            int correct = 0;
+            for (int i = 0; i < total ; i++)
             {
-                //Debug.Log(childTransforms.name + " Hit " + hit1.collider.gameObject.GetComponent<Transform>().name);
-                    
+                Vector3 pos = childTransforms.GetComponent<LineRenderer>().GetPosition(i);
+                RaycastHit hit;
+                
+                Debug.DrawRay(pos, (Vector3.forward) * 100, Color.blue);
+
+                if (Physics.Raycast(pos, Vector3.forward, out hit, Mathf.Infinity))
+                {
+                    Debug.DrawRay(pos, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+
+                    Debug.Log(hit.collider.gameObject.name);
+
+                    correct++;
+                    Debug.Log(correct);
+                }
+
+
+            }
+            
+            if(correct == total)
+            {
                 LineRenderer sp = childTransforms.GetComponent<Transform>().gameObject.GetComponent<LineRenderer>();
 
                 float alpha = 1.0f;
@@ -161,7 +163,6 @@ public class CalculateScore : MonoBehaviour
                 sp.colorGradient = gradient;
 
                 Benar++;
-                continue;
             }
             else
             {

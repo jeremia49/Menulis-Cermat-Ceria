@@ -87,37 +87,16 @@ public class CalculateScore : MonoBehaviour
                 //Debug.Log("Phase Moved");
                 stationary = false;
                 LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
-                if(pointIndex == 0)
-                {
-                    targetLine.SetPosition(1, touchpos);
-                    return;
-                }
-                //Debug.LogError("Point Index :" + pointIndex);
-                //targetLine.SetPosition(pointIndex, touchpos);
+                pointIndex++;
+                targetLine.positionCount++;
                 targetLine.SetPosition(pointIndex, touchpos);
                 targetLine.SetPosition(pointIndex+1, touchpos);
+
             }
-            else if(touch.phase == TouchPhase.Stationary)
+            else if(touch.phase == TouchPhase.Ended)
             {
-                //Debug.Log("Phase Stationary :"+ stationCount.ToString());
-                stationCount++;
-
-                if (!stationary && stationCount >= 60)
-                {
-                    pointIndex++;
-                    LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
-                    targetLine.positionCount++;
-                    targetLine.SetPosition(pointIndex, touchpos);
-                    targetLine.SetPosition(pointIndex + 1, touchpos);
-                    stationary = true;
-                    stationCount = 0;
-                }
-            }else if(touch.phase == TouchPhase.Ended)
-            {
-                //Debug.Log("Phase Ended");
+                
                 LineRenderer targetLine = createdLines[lineIndex].GetComponent<LineRenderer>();
-                //targetLine.SetPosition(pointIndex, touchpos);
-
                 EdgeCollider2D edgeColl = createdLines[lineIndex].AddComponent<EdgeCollider2D>();
 
                 Vector2[] collPoints = new Vector2[targetLine.positionCount];
@@ -133,11 +112,6 @@ public class CalculateScore : MonoBehaviour
                 edgeColl.points = collPoints;
 
 
-                //Mesh mesh = new Mesh();
-                //targetLine.BakeMesh(mesh, false);
-                //meshcoll.sharedMesh = mesh;
-
-
                 pointIndex = 0;
                 lineIndex++;
 
@@ -146,7 +120,6 @@ public class CalculateScore : MonoBehaviour
                     SceneManager.LoadSceneAsync("Result");
                 }
 
-                //createdLines[lineIndex].AddComponent<Rigidbody2D>();
             }
 
 

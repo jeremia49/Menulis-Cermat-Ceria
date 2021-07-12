@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d75e7e519474e498c8f631c864ca3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LEVEL: 2-9
+  LEVEL: 2-2
   color: {r: 1, g: 0, b: 0, a: 0}
   HintParent: {fileID: 399828148}
   TargetParent: {fileID: 53408241}
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   stationCount: 0
   LineLeftText: {fileID: 244146966}
   Score: 0
-  LineLimit: 5
+  LineLimit: 4
   LineLeft: 0
 --- !u!1 &452431434
 GameObject:
@@ -1503,8 +1503,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -2.8676488, z: 0}
-  - {x: 1.603511, y: -2.5377312, z: 0}
+  - {x: -1.1227155, y: -2.8676488, z: 0}
+  - {x: -1.122715, y: -2.5377312, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2-9
+  m_text: 2-2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 13c9c50f841b5cb4499fd60ef2e6eb07, type: 2}
   m_sharedMaterial: {fileID: 186919662675274462, guid: 13c9c50f841b5cb4499fd60ef2e6eb07, type: 2}
@@ -2024,8 +2024,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -2.058191, z: 0}
-  - {x: 1.603511, y: -1.7282734, z: 0}
+  - {x: -1.1227155, y: -2.058191, z: 0}
+  - {x: -1.122715, y: -1.7282734, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -2153,8 +2153,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -1.6518813, z: 0}
-  - {x: 1.603511, y: -1.3219637, z: 0}
+  - {x: -1.1227155, y: -1.6518813, z: 0}
+  - {x: -1.122715, y: -1.3219637, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -3056,8 +3056,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -2.46292, z: 0}
-  - {x: 1.603511, y: -2.1330023, z: 0}
+  - {x: -1.1227155, y: -2.46292, z: 0}
+  - {x: -1.122715, y: -2.1330023, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -3783,8 +3783,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -1.2439907, z: 0}
-  - {x: 1.6035115, y: -1.0644505, z: 0}
+  - {x: -1.1227155, y: -1.2439907, z: 0}
+  - {x: -1.122715, y: -0.91407293, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -4041,8 +4041,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 1.603511, y: -3.2771206, z: 0}
-  - {x: 1.603511, y: -2.947203, z: 0}
+  - {x: -1.1227155, y: -3.2771206, z: 0}
+  - {x: -1.122715, y: -2.947203, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1

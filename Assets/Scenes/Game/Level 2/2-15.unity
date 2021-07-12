@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d75e7e519474e498c8f631c864ca3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LEVEL: 2-4
+  LEVEL: 2-15
   color: {r: 1, g: 0, b: 0, a: 0}
   HintParent: {fileID: 399828148}
   TargetParent: {fileID: 53408241}
@@ -1324,7 +1324,6 @@ MonoBehaviour:
   lineIndex: 0
   material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   pointIndex: 0
-  stationary: 0
   stationCount: 0
   LineLeftText: {fileID: 244146966}
   Score: 0
@@ -1742,7 +1741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2-4
+  m_text: 2-15
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 13c9c50f841b5cb4499fd60ef2e6eb07, type: 2}
   m_sharedMaterial: {fileID: 186919662675274462, guid: 13c9c50f841b5cb4499fd60ef2e6eb07, type: 2}

@@ -60,8 +60,8 @@ public class CalculateScore : MonoBehaviour
 
                 LineRenderer line = lineObject.GetComponent<LineRenderer>();
                 line.material = material;
-                line.startWidth = 0.01f;
-                line.endWidth = 0.01f;
+                line.startWidth = 0.009f;
+                line.endWidth = 0.009f;
 
                 line.SetPosition(0, touchpos);
                 line.SetPosition(1, touchpos);
@@ -97,8 +97,6 @@ public class CalculateScore : MonoBehaviour
                 {
                     SceneManager.LoadSceneAsync("Result");
                 }
-
-                
             }
 
 
@@ -137,83 +135,13 @@ public class CalculateScore : MonoBehaviour
         var Benar = 0;
         foreach (Transform childTransforms in HintParent.GetComponent<Transform>())
         {
-            // int total = childTransforms.GetComponent<LineRenderer>().positionCount;
-            int correct = 0;
 
-            float x1 = childTransforms.GetComponent<LineRenderer>().GetPosition(0).x;
-            float y1 = childTransforms.GetComponent<LineRenderer>().GetPosition(0).y;
-            float x2 = childTransforms.GetComponent<LineRenderer>().GetPosition(1).x;
-            float y2 = childTransforms.GetComponent<LineRenderer>().GetPosition(1).y;
+            RaycastHit hit;
+            bool isHit;
 
-            float koefx = y1-y2;
-            float koefy = x2-x1;
-            float koef = (x1*y2) - (x2*y1);
+            isHit = Physics.CapsuleCast(childTransforms.GetComponent<LineRenderer>().GetPosition(0),childTransforms.GetComponent<LineRenderer>().GetPosition(1),0.005f,Vector3.forward, out hit, Mathf.Infinity);
 
-            float subx(float x){
-                return (((-1*koef)-(koefx * x))/ (koefy));
-            }
-            // float suby(float y){
-            //     return (((-1*koef)-(koefy * y))/ (koefx));
-            // }
-
-            float x=x1;
-            float y=y1;
-
-            List<float> xarr =  new List<float>();
-            List<float> yarr =  new List<float>();
-
-            int n = 0;
-            while (true){
-                if ( (float)Math.Round(x1, 2)  == (float)Math.Round(x2, 2)){
-                    y += proc(y1,y2);
-                    xarr.Add(x);
-                    yarr.Add(y);
-                    if(!check(y,y2)){
-                        break;
-                    }    
-                }else if((float)Math.Round(y1, 2)==(float)Math.Round(y2, 2)){
-                    x += proc(x1,x2);
-                    xarr.Add(x);
-                    yarr.Add(y);
-                    if(!check(x,x2)){
-                        break;
-                    }    
-                }else{
-                    x += proc(x1,x2);
-                    
-                    xarr.Add(x);
-                    yarr.Add(subx(x));
-                    
-                    if(!check(x,x2)){
-                        break;
-                    }    
-                }
-                n++;        
-            }
-            
-            int total = xarr.Count;
-                                    
-            for (int i = 0; i < total ; i++)
-            {
-                // Vector3 pos = childTransforms.GetComponent<LineRenderer>().GetPosition(i);
-                Vector3 pos = new Vector3(xarr[i],yarr[i],0f);
-                RaycastHit hit;
-                
-                Debug.DrawRay(pos, (Vector3.forward) * 100, Color.blue);
-
-                if (Physics.Raycast(pos, Vector3.forward, out hit, Mathf.Infinity))
-                {
-                    Debug.DrawRay(pos, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-
-                    //Debug.Log(hit.collider.gameObject.name);
-
-                    correct++;
-                    //Debug.Log(correct);
-                }
-
-            }
-            
-            if(correct >= 1)
+            if(isHit)
             {
                 LineRenderer sp = childTransforms.GetComponent<Transform>().gameObject.GetComponent<LineRenderer>();
 
@@ -238,9 +166,7 @@ public class CalculateScore : MonoBehaviour
                 );
                 sp.colorGradient = gradient;
             }
-
         }
-
         Score = (100 / HintParent.GetComponent<Transform>().childCount) * Benar ;
         PlayerPrefs.SetFloat("score", Score);
     }
@@ -259,5 +185,30 @@ public class CalculateScore : MonoBehaviour
         Score = 0f;
         LineLeft = LineLimit;
     }
+
+    // private void OnDrawGizmos() {
+    //     foreach (Transform childTransforms in HintParent.GetComponent<Transform>())
+    //     {
+    //         float x1 = childTransforms.GetComponent<LineRenderer>().GetPosition(0).x;
+    //         float y1 = childTransforms.GetComponent<LineRenderer>().GetPosition(0).y;
+    //         float x2 = childTransforms.GetComponent<LineRenderer>().GetPosition(1).x;
+    //         float y2 = childTransforms.GetComponent<LineRenderer>().GetPosition(1).y;
+
+    //         RaycastHit hit;
+    //         bool isHit;
+
+    //         isHit = Physics.CapsuleCast(childTransforms.GetComponent<LineRenderer>().GetPosition(0),childTransforms.GetComponent<LineRenderer>().GetPosition(1),0.01f,Vector3.forward, out hit, Mathf.Infinity);
+    //         // isHit = Physics.BoxCast(new Vector3((x1+x2)/2f,(y1+y2)/2f,0f),halfXtends,Vector3.forward,out hit, Quaternion.FromToRotation(Vector3.up,childTransforms.GetComponent<LineRenderer>().GetPosition(0)-childTransforms.GetComponent<LineRenderer>().GetPosition(1)), Mathf.Infinity);
+            
+    //         if(isHit){
+    //             Gizmos.color = Color.red;
+    //             // Gizmos.DrawCube(new Vector3((x1+x2)/2f,(y1+y2)/2f,0f),halfXtends); 
+    //             Gizmos.DrawWireCube(new Vector3((x1+x2)/2f,(y1+y2)/2f,0f),Vector3.one);
+    //         }else{
+    //             Gizmos.color = Color.green;
+    //             Gizmos.DrawCube(new Vector3((x1+x2)/2f,(y1+y2)/2f,0f),Vector3.one); 
+    //         }
+    //     }
+    // }
 }
 

@@ -62,9 +62,9 @@ public class GetScore : MonoBehaviour
 
     private string getNextLevel(string current)
     {
-        int level1 = 3;
+        int level1 = 4;
         int level2 = 62;
-        int level3 = 1;
+        int level3 = 3;
 
 
         var splitted = current.Split('-');
